@@ -1,0 +1,16 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: api-rate-limit-demo
+
+  # Disable JMX to avoid Jedis MBean conflicts
+  jmx:
+    enabled: false
+
+logging:
+  level:
+    root: INFO
+    org.springframework.web: INFO
+    redis.clients.jedis: WARN
