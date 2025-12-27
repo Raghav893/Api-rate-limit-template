@@ -23,10 +23,11 @@ public class RateLimitFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String path = request.getRequestURI();//To get user current path
         String ip = request.getRemoteAddr();//To get users current ip
+        String method =request.getMethod();//TO get current HTTP method
 
         BucketConfiguration configuration;
 
-        if (path.equals("/auth/login")){
+        if (path.equals("/auth/login")&& method.equals("POST")){
             configuration = RateLimitConfig.loginLimiter();//to set per api filter config  to each path
         }
          else if (path.equals("/payments/create")) {
@@ -40,7 +41,7 @@ public class RateLimitFilter extends OncePerRequestFilter {
             return;
         }
 
-        String key =ip + ":" +path;
+        String key =ip +":"+method+ ":" +path;
         Bucket bucket = proxyManager.getProxy(key,()->configuration);//It injects key and configuration in proxyManager
 
         if (bucket.tryConsume(1)){
