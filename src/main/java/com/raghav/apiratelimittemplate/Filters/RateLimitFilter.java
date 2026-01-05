@@ -14,7 +14,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
-@Component
+@Component//VVVIP TO WRITE
 @AllArgsConstructor
 public class RateLimitFilter extends OncePerRequestFilter {
     private  final ProxyManager proxyManager;
