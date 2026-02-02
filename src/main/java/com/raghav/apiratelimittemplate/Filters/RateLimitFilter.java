@@ -9,15 +9,20 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
 @Component//VVVIP TO WRITE
-@AllArgsConstructor
 public class RateLimitFilter extends OncePerRequestFilter {
     private  final ProxyManager proxyManager;
+
+    public RateLimitFilter(ProxyManager proxyManager) {
+        this.proxyManager = proxyManager;
+    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
